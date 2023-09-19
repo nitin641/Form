@@ -1,0 +1,511 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Thank You Popup</title>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.4/jquery.min.js"></script>
+    <script src="jquery-3.6.4.min.js"></script>
+    <!-- <link rel="stylesheet" href="./css/style.css"> -->
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Inter:wght@100;200;300;400;500;600;700;800;900&display=swap');
+        * {
+            font-family: 'Inter', sans-serif;
+        }
+        
+        a {
+            text-decoration: none;
+            color: #fff;
+        }
+        
+        ul {
+            list-style: none;
+            padding: 0;
+        }
+        
+        .row {
+            display: flex;
+            align-items: center;
+        }
+        
+         ::placeholder {
+            font-weight: 600;
+            color: #80808082;
+        }
+        
+        .nav-items {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            border: 5px solid #000000;
+            padding: 26px 49px;
+            background: linear-gradient(90deg, rgba(231, 89, 10, 1) 0%, rgba(231, 89, 10, 1) 35%, rgba(12, 12, 11, 1) 100%);
+        }
+        
+        .popup-container {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-color: #fff;
+            justify-content: center;
+            align-items: center;
+        }
+        
+        .popup-box {
+            background-color: white;
+            padding: 20px;
+            border-radius: 5px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.2);
+            text-align: center;
+        }
+        
+        .nav-items li,
+        a {
+            font-size: 32px;
+            font-weight: 700;
+            color: #FAEEEE;
+        }
+        
+        .left-shape,
+        .right-shape {
+            width: 37%;
+            padding: 12px;
+        }
+        
+        .right-shape {
+            background: linear-gradient(272deg, rgba(231, 89, 10, 1) 0%, rgba(12, 12, 11, 1) 100%);
+        }
+        
+        .left-shape {
+            background: linear-gradient(90deg, rgba(231, 89, 10, 1) 0%, rgba(12, 12, 11, 1) 100%);
+        }
+        
+        .heading {
+            width: 26%;
+        }
+        
+        .container-div {
+            width: 100%;
+        }
+        
+        .heading h2 {
+            text-align: center;
+            font-size: 32px;
+            text-transform: capitalize;
+        }
+        
+        #message {
+            width: 100%;
+            resize: none;
+            border-radius: 4px;
+            border: 1px solid black;
+            padding: 10px;
+        }
+        
+        .form {
+            width: 100%;
+            max-width: 70%;
+            margin: auto;
+        }
+        
+        .form {
+            width: 64%;
+            margin: auto;
+            display: flex;
+        }
+        
+        .cards {
+            width: 40%;
+            margin-left: -3rem;
+        }
+        
+        .form input {
+            padding: 10px;
+            width: 47%;
+        }
+        
+        #form-sec form {
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: space-between;
+            background: #4caf7036;
+            padding: 46px 90px 8px 32px;
+            box-shadow: -4px -4px 3px #000000a6;
+        }
+        
+        .form input {
+            padding: 10px;
+            width: 45%;
+            margin-bottom: 30px;
+            border-radius: 4px;
+            border: 1px solid black;
+        }
+        
+        #form-sec {
+            padding: 90px 0;
+        }
+        
+        .card {
+            background: #beadfa;
+            padding: 20px 13px;
+            box-shadow: -9px 7px 3px #00000054;
+            border: 1px solid black;
+        }
+        
+        .card p {
+            font-size: 16px;
+            margin-top: 0;
+        }
+        
+        .third-card {
+            margin-bottom: -16px;
+        }
+        
+        .second-card,
+        .third-card {
+            margin-top: 60px;
+            display: flex;
+            align-items: center;
+        }
+        
+        .card.first-card {
+            margin-top: -2rem;
+        }
+        
+        .cta-btn {
+            text-align: center;
+            width: 100%;
+            margin-top: 3rem;
+            margin-bottom: -38px;
+        }
+        
+        .cta-btn button {
+            background: #ff7f5b;
+            font-size: 32px;
+            padding: 6px 26px;
+            border-radius: 6px;
+            border: 1px solid black;
+            color: #fff;
+            font-weight: 600;
+        }
+        
+        .footer-content {
+            background: linear-gradient(90deg, rgba(231, 89, 10, 1) 0%, rgba(231, 89, 10, 1) 35%, rgba(12, 12, 11, 1) 100%);
+            text-align: center;
+            color: white;
+            padding: 26px 0;
+        }
+        
+        .footer-content h4 {
+            font-size: 32px;
+            margin-top: 8px;
+        }
+        
+        .footer-content p {
+            font-size: 24px;
+        }
+        
+        .popup-container {
+            background-color: #ffffff8a;
+        }
+        
+        .popup-box {
+            border-radius: 0;
+            box-shadow: -7px 6px 2px #000000db;
+            width: 336px;
+            border: 2px solid black;
+            padding: 28px 26px 30px 28px;
+            margin: auto;
+            margin-top: 15rem;
+        }
+        
+        .popup-box p {
+            color: darkgreen;
+            font-weight: 500;
+            font-size: 20px;
+            text-align: left;
+        }
+        /* .popup-box button {
+    background: #e7590a;
+    border-radius: 4px;
+    padding: 4px 22px;
+} */
+        
+        .popup-box button {
+            background: #ff7f5b;
+            border-radius: 4px;
+            padding: 6px 28px;
+            border: 1px solid black;
+            color: white;
+            font-size: 20px;
+        }
+        
+        .popup-container {
+            background-color: #0000004a;
+            backdrop-filter: blur(1px);
+        }
+        
+        @media only screen and (max-width:1399px) {
+            .form input {
+                width: 44%;
+            }
+        }
+        
+        @media only screen and (max-width:1299px) {
+            .form {
+                width: 70%;
+            }
+            #form-sec form {
+                width: 65%;
+            }
+            .cards {
+                width: 35%;
+                margin-left: -3rem;
+            }
+        }
+        
+        @media only screen and (max-width:1199px) {
+            .form {
+                width: 85%;
+                max-width: 82%;
+            }
+            .heading h2 {
+                font-size: 26px;
+            }
+            .nav-items li,
+            a {
+                font-size: 24px;
+            }
+            .cta-btn button {
+                font-size: 18px;
+            }
+            .cta-btn {
+                margin-bottom: -26px;
+            }
+        }
+        
+        @media only screen and (max-width:992px) {
+            .form input {
+                width: 91%;
+            }
+            #form-sec form {
+                width: 50%;
+            }
+            .cards {
+                width: 49%;
+                margin-left: -3rem;
+            }
+            .heading h2 {
+                font-size: 22px;
+            }
+            .left-shape,
+            .right-shape {
+                width: 30%;
+                padding: 12px;
+            }
+            .heading {
+                width: 34%;
+            }
+            .nav-items li,
+            a {
+                font-size: 20px;
+            }
+        }
+        
+        @media only screen and (max-width:576px) {
+            .form {
+                width: 64%;
+                margin: auto;
+                display: flex;
+                flex-wrap: wrap;
+            }
+            #form-sec form {
+                width: 100%;
+                max-width: 100%;
+                padding: 30px 20px;
+            }
+            .nav-items {
+                padding: 18px 12px;
+            }
+            .nav-items li,
+            a {
+                font-size: 14px;
+            }
+            .heading h2 {
+                font-size: 16px;
+            }
+            .heading {
+                width: 43%;
+            }
+            .heading h2 {
+                font-size: 16px;
+            }
+            #form-sec {
+                padding: 30px 0 50px;
+            }
+            .left-shape,
+            .right-shape {
+                width: 23%;
+                padding: 8px;
+            }
+            .form {
+                width: 100%;
+                max-width: 100%;
+            }
+            .form input {
+                width: 100%;
+            }
+            .cards {
+                width: 100%;
+                margin-left: 0;
+                margin-top: 5rem;
+            }
+            .second-card,
+            .third-card {
+                margin-top: 20px;
+                display: flex;
+                align-items: center;
+            }
+            .cta-btn {
+                margin-bottom: -42px;
+            }
+            .footer-content h4 {
+                margin-bottom: 0;
+                font-size: 18px;
+            }
+            .popup-box {
+                border-radius: 0;
+                box-shadow: -7px 6px 2px #000000db;
+                width: 336px;
+                border: 2px solid black;
+                padding: 18px 10px 29px;
+                margin: auto;
+                margin-top: 15rem;
+            }
+        }
+    </style>
+</head>
+
+<body>
+
+    <nav>
+        <div class="container-div">
+            <ul class="nav-items">
+                <li><a href="#0">Logo</a></li>
+                <li>Round One:Practical</li>
+            </ul>
+        </div>
+    </nav>
+
+
+    <section id="header-sec">
+        <div class="container-div">
+            <div class="row">
+                <div class="left-shape"></div>
+                <div class="heading">
+                    <h2>Contact Us Form</h2>
+                </div>
+                <div class="right-shape"></div>
+            </div>
+        </div>
+    </section>
+
+    <section id="form-sec">
+        <div class="container-div">
+            <div class="row">
+                <div class="form">
+                    <form action="" method="post" onsubmit="showPopup(); return false;">
+                        <input type="text" placeholder="First Name" required>
+                        <input type="text" placeholder="Last Name" required>
+                        <input type="number" placeholder="Phone Number" required>
+                        <input type="email" placeholder="Email" required>
+                        <textarea name="" id="message" cols="30" rows="10" placeholder="About Yourself"></textarea>
+                        <div class="cta-btn">
+                            <button href="#0" type="submit" value="Submit">Submit</button>
+                        </div>
+                    </form>
+                    <div class="cards">
+                        <div class="card first-card">
+                            <p><strong>Office Address:</strong> Master creationz, industrial area, sector 74 sahibzada ajit sigh nagar, punjab 160072
+                            </p>
+                        </div>
+                        <div class="card second-card">
+                            <p><strong>Mail:</strong> nirotam@mastercreationz.com</p>
+                        </div>
+                        <div class="card third-card">
+                            <p><strong>Contact:</strong> +91 8872166502</p>
+                        </div>
+                    </div>
+                </div>
+
+
+            </div>
+        </div>
+    </section>
+
+
+
+
+
+    <footer>
+        <div class="container-div">
+            <div class="footer-content">
+                <h4>Practice</h4>
+                <p>Lorem Ipsum is simply dummy text of the printing and typesettin</p>
+            </div>
+        </div>
+    </footer>
+
+
+
+
+
+
+
+    <!-- <button onclick="showPopup()">Show Thank You Popup</button> -->
+
+    <div id="popup" class="popup-container">
+
+        <div class="popup-box">
+            <p>We received your message. Our team will contact you shortly with the solution to your query.</p>
+            <button onclick="hidePopup()">Okah!!</button>
+        </div>
+    </div>
+
+
+
+
+    <script>
+        function showPopup() {
+            document.getElementById("popup").style.display = "block";
+        }
+
+        function hidePopup() {
+            document.getElementById("popup").style.display = "none";
+        }
+    </script>
+
+
+
+
+    <script>
+        $(document).ready(function() {
+
+            var highestBox = 0;
+            $('.container-div .card').each(function() {
+                if ($(this).height() > highestBox) {
+                    highestBox = $(this).height();
+                }
+            });
+            $('.container-div .card').height(highestBox);
+
+        });
+    </script>
+
+</body>
+
+</html>
